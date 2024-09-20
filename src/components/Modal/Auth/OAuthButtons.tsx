@@ -18,7 +18,23 @@ const OAuthButtons: React.FC = ({}) => {
           mr={2}
           height="30px"
         />
-        GitHub
+        Continue with GitHub
+      </Button>
+
+      {/* Apple */}
+      <Button
+        variant="oauth"
+        mb={2}
+        isLoading={false}
+        onClick={() => {}}
+      >
+        <Image
+          src="/image/apple.png"
+          alt="Sign in with Apple"
+          mr={2}
+          height="30px"
+        />
+        Sign in with Apple
       </Button>
     </Flex>
   );
