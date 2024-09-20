@@ -1,10 +1,20 @@
 import React from "react";
+import { Flex, Image } from "@chakra-ui/react";
 
 const Navbar: React.FC = () => {
     return (
-        <nav>
-            <h1>Navbar</h1>
-        </nav>
+        <Flex bg="white" height="80px" padding="6px 12px">
+            <Flex align="center">
+                <Image src="/image/Forrum.png" alt="Logo" height="80px" />
+
+                {/* <Image
+                    src="/image/Forrum.png"
+                    height="46px"
+                    display={{ base: "none", md: "unset" }}
+                    alt="Website logo text"
+                /> */}
+            </Flex>
+        </Flex>
     );
 };
 
