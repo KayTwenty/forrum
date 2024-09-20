@@ -1,28 +1,48 @@
-import { authModalState } from "@/atoms/authModalAtom";
-import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useSetRecoilState } from "recoil";
+import { authModalState, AuthModalState } from "../../../atoms/authModalAtom";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "../../../firebase/clientApp";
+import { FIREBASE_ERRORS } from "../../../firebase/errors";
 
 type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
-  const setAuthModalState = useSetRecoilState(authModalState);
+  const setAuthModalState = useSetRecoilState(authModalState); // Set global state
   const [loginForm, setLoginForm] = useState({
     email: "", // Initially empty email
     password: "", // Initially empty password
   });
 
-  const onSubmit = () => {};
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
+  /**
+   * This function is used as the event handler for a form submission.
+   * It will attempt to sign in the user with the provided email and password.
+   * @param event  (React.FormEvent): the submit event triggered by the form
+   */
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    signInWithEmailAndPassword(loginForm.email, loginForm.password); // Attempt to sign in the user
+  };
+
+  /**
+   * Function to execute when the form is changed (i.e. when the user types in the form)
+   * Mutiple inputs use the same onChqange function.
+   * @param event (React.ChangeEvent<HTMLInputElement>): the change event triggered by the input
+   */
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Update the login form state with the new value
     setLoginForm((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
+      ...prev, // Spread previous state because we don't want to lose the other key-value pairs
+      [event.target.name]: event.target.value, // Catch the name of the input that was changed and update the coressponding state
     }));
   };
 
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <Input
         required
         name="email"
@@ -67,7 +87,14 @@ const Login: React.FC<LoginProps> = () => {
           border: "1px solid",
         }}
       />
-      <Button width="100%" height="36px" mt={2} mb={2} type="submit">
+
+      <Text textAlign="center" color="red" fontSize="10pt" fontWeight="800">
+        {FIREBASE_ERRORS[error?.message as keyof typeof FIREBASE_ERRORS]}
+      </Text>
+
+      <Button width="100%" height="36px" mt={2} mb={2} type="submit" isLoading={loading}>
+        {" "}
+        {/* When the form is submitted, execute onSubmit function */}
         Log In
       </Button>
 
