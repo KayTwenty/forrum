@@ -4,11 +4,11 @@
 Forrum is a social thread platform that allows users to create threads and post comments. Users can also upvote and downvote threads and comments. The platform is built using Next.js, TypeScript, and Firebase.
 
 ## Features
-[] Create threads
-[] Post comments
-[] Upvote and downvote threads and comments
-[x] User authentication
-[] User profile
+- [] Create threads
+- [] Post comments
+- [] Upvote and downvote threads and comments
+- [x] User authentication
+- [] User profile
 
 ## Getting Started
 1. Clone the repository
