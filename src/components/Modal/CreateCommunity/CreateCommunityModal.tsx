@@ -87,7 +87,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                   );
                 }
         
-                // create community
+                // Create community
                 transaction.set(communityDocRef, {
                   creatorId: user?.uid,
                   createdAt: serverTimestamp(),
@@ -95,7 +95,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                   privacyType: communityType,
                 });
         
-                // create community snippet on user
+                // Create community snippet on user
                 transaction.set(
                   // path: collection/document/collection/...
                   doc(firestore, `users/${user?.uid}/communitySnippets`, communityName),
